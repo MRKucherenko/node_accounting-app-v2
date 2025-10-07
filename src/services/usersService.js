@@ -2,7 +2,7 @@ const users = [];
 let idCounter = 1;
 
 function getAll() {
-  return users;
+  return [...users];
 }
 
 function getById(id) {
@@ -24,7 +24,7 @@ function update(id, name) {
     return null;
   }
 
-  if (name) {
+  if (name !== undefined) {
     user.name = name;
   }
 

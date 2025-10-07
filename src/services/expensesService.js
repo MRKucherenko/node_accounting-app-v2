@@ -1,10 +1,10 @@
 const expenses = [];
 let idCounter = 1;
 
-function getAll({ userId, from, to, categories }) {
+function getAll({ userId, from, to, categories } = {}) {
   let result = expenses;
 
-  if (userId) {
+  if (userId != null) {
     result = result.filter((e) => e.userId === Number(userId));
   }
 
@@ -20,7 +20,7 @@ function getAll({ userId, from, to, categories }) {
   }
 
   if (categories) {
-    result = result.filter((e) => e.category === categories);
+    result = result.filter((e) => categories.includes(e.category));
   }
 
   return result;
@@ -36,7 +36,7 @@ function create({ userId, spentAt, title, amount, category, note }) {
     userId: Number(userId),
     spentAt,
     title,
-    amount,
+    amount: Number(amount),
     category,
     note: note || '',
   };

@@ -9,8 +9,13 @@ function createServer() {
 
   app.use(express.json());
 
-  usersService.reset?.();
-  expensesService.reset?.();
+  if (typeof usersService.reset === 'function') {
+    usersService.reset();
+  }
+
+  if (typeof expensesService.reset === 'function') {
+    expensesService.reset();
+  }
 
   app.use('/users', usersRoutes);
   app.use('/expenses', expensesRoutes);

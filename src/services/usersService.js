@@ -6,7 +6,7 @@ function getAll() {
 }
 
 function getById(id) {
-  return users.find((u) => u.id === Number(id));
+  return users.find((u) => u.id === Number(id)) || null;
 }
 
 function create(name) {

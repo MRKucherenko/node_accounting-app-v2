@@ -19,24 +19,35 @@ function getAll({ userId, from, to, categories } = {}) {
     });
   }
 
-  if (categories) {
-    result = result.filter((e) => categories.includes(e.category));
+  if (categories != null) {
+    let categoryList;
+
+    if (Array.isArray(categories)) {
+      categoryList = categories;
+    } else {
+      categoryList = String(categories)
+        .split(',')
+        .map((c) => c.trim());
+    }
+
+    result = result.filter((e) => categoryList.includes(e.category));
   }
 
   return result;
 }
 
 function getById(id) {
-  return expenses.find((e) => e.id === Number(id));
+  return expenses.find((e) => e.id === Number(id)) || null;
 }
 
 function create({ userId, spentAt, title, amount, category, note }) {
+  const numAmount = Number(amount);
   const expense = {
     id: idCounter++,
     userId: Number(userId),
     spentAt,
     title,
-    amount: Number(amount),
+    amount: numAmount,
     category,
     note: note || '',
   };
